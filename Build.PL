@@ -121,7 +121,6 @@ my $build = Module::Build->new(
         'Net::Server::Fork'      => '0',
         'Parallel::ForkManager'  => '0',
         'Params::Validate'       => '1.13',
-	'Alien::RRDtool'         => '0',
         'URI'                    => '1.59',
         'XML::Dumper'            => '0',
     },

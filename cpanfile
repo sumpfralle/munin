@@ -1,4 +1,3 @@
-requires 'Alien::RRDtool';
 requires 'DBD::Pg';
 requires 'DBD::SQLite';
 requires 'DBI';
