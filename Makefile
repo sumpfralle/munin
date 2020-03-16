@@ -486,7 +486,7 @@ endif
 
 ######################################################################
 
-test: test-common test-master test-node test-plugins
+test: test-common test-master test-node test-plugins test-plugins-configure
 
 ifeq ($(MAKELEVEL),0)
 # Re-exec make with the test config
@@ -538,6 +538,15 @@ install-%: %/Build
 
 test-%: %/Build
 	cd $* && $(PERL) Build test --verbose=0
+
+test-plugins-configure: clean
+	@# DESTDIR is used by the sandbox scripts as the (optional) location of the sandbox
+	@# The "clean" operation is necessary, since the build process spoils the content of the
+	@# "build/" directory. Sadly this location is not configurable.
+	sandbox_dir="$$(mktemp -d)" \
+		&& trap 'rm -rf "$${sandbox_dir}"; make clean' EXIT \
+		&& DESTDIR="$${sandbox_dir}" dev_scripts/install \
+		&& DESTDIR="$${sandbox_dir}" dev_scripts/run munin-node-configure --suggest
 
 
 .PHONY: lint lint-plugins lint-spelling
