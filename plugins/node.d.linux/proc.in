@@ -576,8 +576,16 @@ sub check_args
                 }
             }
             exit 0;
+        } elsif ($ARGV[0] eq "autoconf") {
+            if (-r "/proc/self/cmdline") {
+                print "yes\n";
+            } else {
+                print "no (failed to access 'cmdline' for process below /proc/)\n";
+            }
+            exit 0;
+        } else {
+            usage "Unknown argument";
         }
-        usage "Unknown argument";
     }
 }
 
